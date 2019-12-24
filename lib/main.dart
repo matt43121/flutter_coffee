@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quick_actions/quick_actions.dart';
+import 'dart:io';
 import 'quote.dart';
 import 'drink_info.dart';
 
@@ -12,6 +14,26 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final QuickActions quickActions = QuickActions();
+    quickActions.initialize((String shortcutType) {
+      if (shortcutType == 'action_decrement') {
+        print('The user tapped on the "decrement" action.');
+        main();
+      } else {
+        print('The user tapped on the "increment" action.');
+      }
+    });
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'action_decrement', localizedTitle: 'decrement', icon: 'minus'),
+      const ShortcutItem(
+          type: 'action_increment', localizedTitle: 'increment', icon: 'plus')
+    ]);
+  }
 
   List<Drink> drinks = [
   Drink(id: 1001, category: 'Hot', name: 'Cappuccino', price: 15.59, desc: 'A nice Cappuccino cup', info: 'Outside of Italy, cappuccino is a coffee drink that today is typically composed of double espresso and hot milk, with the surface topped with foamed milk. Cappuccinos are most often prepared with an espresso macchine. The double espreso os poured into the bottomof the cip, followed by a similar amount of hot milk, which is prepared by heating and texturing the milk using the espresso machine steam wand. The top third of th drink consistes of milk foam; this foam can be decorated with artisticc drawings made with the same milk, called latte art.', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyvzUsyUP5X04P-EatqPsU7pBn2TZYq-fR_yI2H816GiAgeH1N&s'),
