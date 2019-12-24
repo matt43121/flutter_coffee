@@ -95,7 +95,6 @@ class DetailScreen extends StatelessWidget {
     final bottomContentText = Text(
       drink.info,
       style: TextStyle(fontSize: 18.0,
-      color: Colors.white,
       ),
     );
     final readButton = Container(
@@ -118,7 +117,6 @@ class DetailScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[topContent, bottomContent],
