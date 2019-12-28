@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quick_actions/quick_actions.dart';
 import 'featured_widget.dart';
-import 'placeholder_widget.dart';
-import 'main.dart';
+import 'account_info.dart';
+import 'stores_map.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,40 +13,45 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     FeaturedContainer(),
-    PlaceholderWidget(Colors.yellow),
-    PlaceholderWidget(Colors.white),
-
+    GoogleMapContainer(),
+    AccountPage()
   ];
+
+  String shortcut = "no action set";
 
   @override
   void initState() {
     super.initState();
+
     final QuickActions quickActions = QuickActions();
     quickActions.initialize((String shortcutType) {
-      if (shortcutType == 'action_decrement') {
-        print('The user tapped on the "decrement" action.');
-        main();
-      } else {
-        print('The user tapped on the "increment" action.');
-      }
+      setState(() {
+        if (shortcutType != null) shortcut = shortcutType;
+      });
     });
 
     quickActions.setShortcutItems(<ShortcutItem>[
+      // NOTE: This first action icon will only work on iOS.
+      // In a real world project keep the same file name for both platforms.
       const ShortcutItem(
-          type: 'action_decrement', localizedTitle: 'decrement', icon: 'minus'),
+        type: 'action_one',
+        localizedTitle: 'Stores',
+        icon: 'AppIcon',
+      ),
+      // NOTE: This second action icon will only work on Android.
+      // In a real world project keep the same file name for both platforms.
       const ShortcutItem(
-          type: 'action_increment', localizedTitle: 'increment', icon: 'plus')
+          type: 'action_two',
+          localizedTitle: 'Profile',
+          icon: 'ic_launcher'),
     ]);
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Flutter App'),
+        title: Text(_currentIndex.toString()),
       ),
       body: _children[_currentIndex], // new, // new
       bottomNavigationBar: BottomNavigationBar(
@@ -63,7 +68,7 @@ class _HomeState extends State<Home> {
           ),
           new BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              title: Text('Profile')
+              title: Text('Account')
           )
         ],
       ),
