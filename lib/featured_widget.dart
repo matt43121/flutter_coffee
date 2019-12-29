@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'drink_info.dart';
-import 'quote.dart';
+import 'drink.dart';
 
 class FeaturedContainer extends StatefulWidget {
   @override
@@ -22,100 +22,113 @@ class _FeaturedContainerState extends State<FeaturedContainer> {
     return homeContainer(context);
   }
 
-  Container homeContainer(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: Text("Featured Drinks",
-                    style: TextStyle(fontSize: 30.0),
+  CustomScrollView homeContainer(BuildContext context) {
+    return CustomScrollView(
+        slivers: <Widget>[
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: false,
+              pinned: true,
+              title: Text("FlutterCoffee"),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  drinksListView(context),
+                  Padding(
+                    padding: const EdgeInsets.only( left: 10.0),
+                    child: Text("YOUR POINTS",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
                   ),
-                ),
-                drinksListView(context),
-                Padding(
-                  padding: const EdgeInsets.only( left: 10.0),
-                  child: Text("YOUR POINTS",
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  height: 80.0,
-                  decoration: new BoxDecoration(
-                    color: Colors.yellow[50],
-                    borderRadius: BorderRadius.circular(10.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 10.0, // has the effect of softening the shadow
-                        spreadRadius: 3.0, // has the effect of extending the shadow
-                        offset: Offset(
-                          5.0, // horizontal, move right 10
-                          5.0, // vertical, move down 10
-                        ),
-                      )
-                    ],
+                  Container(
+                    margin: const EdgeInsets.all(10.0),
+                    height: 80.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.red[50],
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0, // has the effect of softening the shadow
+                          spreadRadius: 3.0, // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0, // vertical, move down 10
+                          ),
+                        )
+                      ],
 //                    borderRadius: new BorderRadius.all(...),
 //                    gradient: new LinearGradient(...),
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          child: Icon(
-                            Icons.local_drink,
-                            color: Colors.black,
-                            size: 50.0,
-                            semanticLabel: 'Text to announce in accessibility modes',
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text("$points",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25.0,
-                                ),
-                              ),
-                              Text(" | £${points / 100}",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text("You're off to a great start!",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            child: Icon(
+                              Icons.local_drink,
+                              color: Colors.black,
+                              size: 50.0,
+                              semanticLabel: 'Text to announce in accessibility modes',
                             ),
                           ),
-                        ],
-                      )
-                    ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Text("$points",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                                Text(" | £${points / 100}",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text("You're off to a great start!",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.red,
+                      height: 300.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+              )
+          ],
+        
     );
   }
 
@@ -128,7 +141,7 @@ class _FeaturedContainerState extends State<FeaturedContainer> {
           itemCount: drinks.length, itemBuilder: (context, index) {
         final drink = drinks[index];
         return Container(
-          width: MediaQuery.of(context).size.width * 0.75,
+          width: MediaQuery.of(context).size.width * 0.65,
           child: InkWell(
             onTap: () {Navigator.push(
               context,
@@ -142,10 +155,15 @@ class _FeaturedContainerState extends State<FeaturedContainer> {
                 children: <Widget>[
                   Expanded(
                     child: Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image(
-                          image: NetworkImage(drink.img.toString()),
+                      child: Container(
+                        width: 350.0,
+                        height: 350.0,
+                          child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Image(
+                            image: NetworkImage(drink.img.toString()),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),

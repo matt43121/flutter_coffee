@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'quote.dart';
+import 'drink.dart';
 
 class DetailScreen extends StatelessWidget {
   // Declare a field that holds the drink.
@@ -15,7 +15,8 @@ class DetailScreen extends StatelessWidget {
       padding: const EdgeInsets.all(7.0),
       decoration: new BoxDecoration(
           border: new Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(5.0)),
+          borderRadius: BorderRadius.circular(5.0)
+          ),
       child: new Text(
         "\£" + drink.price.toString(),
         style: TextStyle(color: Colors.white),
