@@ -50,13 +50,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_currentIndex.toString()),
-      ),
-      body: _children[_currentIndex], // new, // new
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped, // new
-        currentIndex: _currentIndex, // new
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
         items: [
           new BottomNavigationBarItem(
             icon: Icon(Icons.home),

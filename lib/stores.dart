@@ -1,14 +1,14 @@
-import 'dart:wasm';
+import 'package:tuple/tuple.dart';
 
-class Drink {
+
+class Store {
 
   int id;
-  String category;
+  String country;
   String name;
   String desc;
-  String info;
-  String img;
-  double price;
+  String address;
+  Tuple2<double, double> coords;
 
   //  normal constructor, as we've already seen
 
@@ -27,6 +27,6 @@ class Drink {
   // constructor with named parameters
   // & automatically assigns named arguments to class properties
 
-  Drink({ this.id, this.category, this.name, this.desc, this.info, this.img, this.price});
+  Store({ this.id, this.country, this.name, this.desc, this.address, this.coords });
 
 }
