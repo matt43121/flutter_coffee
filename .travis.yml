@@ -16,4 +16,5 @@ deploy:
     provider: heroku
     api_key:
         secure: $HEROKU_TOKEN
+    app: flutter-coffee-backend
     on: production
